@@ -9,6 +9,8 @@ namespace scad {
 namespace {
 
 constexpr double kDefaultKeySpacing = 19;
+constexpr double kPipeKeySpacing = 23.8;
+constexpr double kReturnKeySpacing = 30.95;
 // The direct distance between switch tops in the bowl.
 constexpr double kBowlKeySpacing = 18;
 
@@ -81,35 +83,28 @@ KeyData::KeyData(TransformList key_origin) {
   key_delete.Configure([&](Key& k) {
     k.name = "key_delete";
     k.SetParent(key_backspace);
-    k.SetPosition(kDefaultKeySpacing, 0, 0);
+    k.SetPosition(kPipeKeySpacing, 10, 0);
   });
 
   // Bottom side key.
   key_end.Configure([&](Key& k) {
     k.name = "key_end";
-    k.SetParent(key_delete);
-    k.SetPosition(kDefaultKeySpacing, -9, 0);
-  });
-
-  // Middle side key.
-  key_home.Configure([&](Key& k) {
-    k.name = "key_home";
-    k.SetParent(key_delete);
-    k.SetPosition(kDefaultKeySpacing, 10, 0);
+    k.SetParent(key_backspace);
+    k.SetPosition(kReturnKeySpacing, -10, 0);
   });
 
   // Top side key;
   key_alt.Configure([&](Key& k) {
     k.name = "key_alt";
-    k.SetParent(key_delete);
-    k.SetPosition(kDefaultKeySpacing, 10 + kDefaultKeySpacing, 0);
+    k.SetParent(key_backspace);
+    k.SetPosition(kDefaultKeySpacing + kDefaultKeySpacing, 10 + kDefaultKeySpacing, 0);
   });
 
   // Top left key.
   key_ctrl.Configure([&](Key& k) {
     k.name = "key_ctrl";
-    k.SetParent(key_delete);
-    k.SetPosition(0, 10 + kDefaultKeySpacing, 0);
+    k.SetParent(key_backspace);
+    k.SetPosition(kDefaultKeySpacing, 10 + kDefaultKeySpacing, 0);
   });
 
   //

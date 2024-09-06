@@ -49,20 +49,20 @@ int main() {
 
   // Set all of the widths here. This must be done before calling any of GetTopLeft etc.
 
-  d.key_backspace.extra_width_bottom = 11;
+  d.key_backspace.extra_width_bottom = 13;
   d.key_backspace.extra_width_left = 3;
-  d.key_delete.extra_width_bottom = 11;
+  d.key_backspace.extra_width_right = 2;
+  d.key_delete.extra_width_top = 3;
+  d.key_delete.extra_width_right = 20.15;
+  d.key_delete.extra_width_left = 4;
   d.key_end.extra_width_bottom = 3;
   d.key_ctrl.extra_width_top = 3;
   d.key_alt.extra_width_top = 3;
-  d.key_alt.extra_width_right = 3;
+  d.key_alt.extra_width_right = 6;
   d.key_alt.extra_width_left = 3;
-  d.key_home.extra_width_right = 3;
-  d.key_home.extra_width_left = 3;
-  d.key_home.extra_width_top = 3;
   d.key_end.extra_width_top = 3;
-  d.key_end.extra_width_right = 3;
-  d.key_end.extra_width_left = 3;
+  d.key_end.extra_width_right = 13;
+  d.key_end.extra_width_left = 12;
 
   // left wall
   for (Key* key : d.grid.column(0)) {
@@ -90,11 +90,7 @@ int main() {
   //
 
   shapes.push_back(Union(ConnectHorizontal(d.key_ctrl, d.key_alt),
-                         ConnectHorizontal(d.key_backspace, d.key_delete),
-                         ConnectVertical(d.key_ctrl, d.key_delete),
-                         Tri(d.key_end.GetBottomLeft(),
-                             d.key_delete.GetBottomRight(),
-                             d.key_backspace.GetBottomLeft())));
+                         ConnectVertical(d.key_ctrl, d.key_delete)));
 
   shapes.push_back(ConnectMainKeys(d));
 
@@ -135,6 +131,7 @@ int main() {
                               d.key_ctrl.GetTopLeft(),
                               d.key_b.GetBottomRight(),
                               d.key_backspace.GetTopLeft(),
+                              d.key_backspace.GetTopRight(),
                           }));
   shapes.push_back(TriFan(d.key_b.GetBottomLeft(),
                           {
@@ -256,10 +253,7 @@ int main() {
         {d.key_alt.GetTopRight(), up, 0, .5},
         {d.key_alt.GetTopRight(), right, 0, .5},
         {d.key_alt.GetBottomRight(), right},
-
-        {d.key_home.GetTopRight(), right},
-        {d.key_home.GetBottomRight(), right},
-
+ 
         {d.key_end.GetTopRight(), right},
         {d.key_end.GetBottomRight(), right, 0, .5},
         {d.key_end.GetBottomRight(), down, 0, .5},
