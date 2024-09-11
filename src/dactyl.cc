@@ -366,7 +366,7 @@ int main() {
 
     glm::vec3 screw_right_bottom = d.key_end.GetBottomLeft().Apply(kOrigin);
     screw_right_bottom.z = 0;
-    screw_right_bottom.y += 1.5;
+    screw_right_bottom.y += -2;
     screw_right_bottom.x += 17;
 
     glm::vec3 screw_right_mid = d.key_ctrl.GetTopLeft().Apply(kOrigin);
