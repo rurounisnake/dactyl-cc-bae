@@ -55,13 +55,13 @@ int main() {
   d.key_end.extra_width_bottom = 3;
   d.key_ctrl.extra_width_top = 3;
   d.key_alt.extra_width_top = 3;
-  d.key_alt.extra_width_right = 3;
+  d.key_alt.extra_width_right = 6;
   d.key_alt.extra_width_left = 3;
-  d.key_home.extra_width_right = 3;
+  d.key_home.extra_width_right = 6;
   d.key_home.extra_width_left = 3;
   d.key_home.extra_width_top = 3;
   d.key_end.extra_width_top = 3;
-  d.key_end.extra_width_right = 3;
+  d.key_end.extra_width_right = 6;
   d.key_end.extra_width_left = 3;
 
   // left wall
@@ -349,12 +349,15 @@ int main() {
 
   // Add all the screw inserts.
   std::vector<Shape> screw_holes;
+  std::vector<Shape> screw_holes_bottom;
   {
-    double screw_height = 5;
-    double screw_radius = 4.4 / 2.0;
-    Shape screw_hole = Cylinder(screw_height + 2, screw_radius, 30);
+    double screw_height = 8;
+    double screw_radius = 3.5 / 2.0;
+    double screw_insert_radius = 4.3 / 2.0;
+    Shape screw_hole = Cylinder(screw_height + 12, screw_insert_radius, 40);
+    Shape screw_hole_bottom = Cylinder(screw_height + 12, screw_radius, 40);
     Shape screw_insert =
-        Cylinder(screw_height, screw_radius + 1.65, 30).TranslateZ(screw_height / 2);
+        Cylinder(screw_height, screw_insert_radius + 3, 30).TranslateZ(screw_height / 2);
 
     glm::vec3 screw_left_bottom = d.key_shift.GetBottomLeft().Apply(kOrigin);
     screw_left_bottom.z = 0;
@@ -391,6 +394,13 @@ int main() {
         screw_hole.Translate(screw_right_bottom),
         screw_hole.Translate(screw_left_bottom),
     };
+    screw_holes_bottom = {
+        screw_hole_bottom.Translate(screw_left_top),
+        screw_hole_bottom.Translate(screw_right_top),
+        screw_hole_bottom.Translate(screw_right_mid),
+        screw_hole_bottom.Translate(screw_right_bottom),
+        screw_hole_bottom.Translate(screw_left_bottom),
+    };
   }
 
   std::vector<Shape> negative_shapes;
@@ -422,7 +432,7 @@ int main() {
     Shape bottom_plate = UnionAll(bottom_plate_shapes)
                              .Projection()
                              .LinearExtrude(1.5)
-                             .Subtract(UnionAll(screw_holes));
+                             .Subtract(UnionAll(screw_holes_bottom));
     bottom_plate.WriteToFile("bottom_left.scad");
     bottom_plate.MirrorX().WriteToFile("bottom_right.scad");
   }
