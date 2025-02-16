@@ -3,5 +3,5 @@
 echo Making stl, this will take a while.
 
 set -x
-openscad -o ../things/right.stl right.scad
-openscad -o ../things/bottom_right.stl bottom_right.scad
+openscad -o ../things/macro_bae.stl macro_bae.scad
+openscad -o ../things/bottom_macro_bae.stl bottom_macro_bae.scad
